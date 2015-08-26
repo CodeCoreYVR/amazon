@@ -1,3 +1,22 @@
 <h1><%= @product.title %></h1>
 <p><%= @product.description %></p>
 <p><%= number_to_currency(@product.price) %></p>
+<h2>Add a comment</h2>
+<% if @comment.errors.any? %>
+  <ul>
+    <% @comment.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+<%= form_for [@product, @comment] do |f| %>
+  <%= f.text_area :body %>
+  <%= f.submit %>
+<% end %>
+<h2>Comments</h2>
+<% @product.comments.each do |com| %>
+  <%= com.body %>
+  <%= link_to "delete", product_comment_path(@product, com),
+               method: :delete %>
+  <hr>
+<% end %>

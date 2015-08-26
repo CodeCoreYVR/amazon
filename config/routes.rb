@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
-  get "/products/new" => "products#new", as: :new_product
-  post "/products" => "products#create", as: :products
-  get "/products/:id" => "products#show", as: :product
-  get "/products" => "products#index"
-  get "/products/:id/edit" => "products#edit", as: :edit_product
-  patch "/products/:id" => "products#update"
-  delete "/products/:id" => "products#destroy"
+  # get "/products/new" => "products#new", as: :new_product
+  # post "/products" => "products#create", as: :products
+  # get "/products/:id" => "products#show", as: :product
+  # get "/products" => "products#index"
+  # get "/products/:id/edit" => "products#edit", as: :edit_product
+  # patch "/products/:id" => "products#update"
+  # delete "/products/:id" => "products#destroy"
+
+  resources :products do
+    resources :comments, only: [:create, :destroy]
+  end
 
   root "home#index"
   # The priority is based upon order of creation: first created -> highest priority.
