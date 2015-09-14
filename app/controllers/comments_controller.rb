@@ -4,10 +4,14 @@ class CommentsController < ApplicationController
     @comment = Comment.new comment_params
     @product = Product.find params[:product_id]
     @comment.product = @product
-    if @comment.save
-      redirect_to product_path(@product)
-    else
-      render "/products/show"
+    respond_to do |format|
+      if @comment.save
+        format.html {redirect_to product_path(@product) }
+        format.js   { render  }
+      else
+        format.html {render "/products/show" }
+        format.js   { render  }
+      end
     end
   end
 
@@ -15,7 +19,10 @@ class CommentsController < ApplicationController
     @product = Product.find params[:product_id]
     @comment = Comment.find params[:id]
     @comment.destroy
-    redirect_to product_path(@product)
+    respond_to do |format|
+      format.html { redirect_to product_path(@product) }
+      format.js   { render }
+    end
   end
 
   private

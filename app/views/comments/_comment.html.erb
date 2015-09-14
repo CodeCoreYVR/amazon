@@ -1,0 +1,7 @@
+<div id="<%= dom_id(com) %>">
+  <%= com.body %>
+  <%= link_to "delete", product_comment_path(@product, com),
+               method: :delete,
+               remote: true %>
+  <hr>
+</div>
