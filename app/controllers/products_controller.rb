@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
 
   def create
     params[:product][:price] = params[:product][:price].gsub(",", "")
-    product_params = params.require(:product).permit([:title, :price, :description])
+    product_params = params.require(:product).permit([:title, :price, :description, {category_ids: []}])
     @product = Product.new product_params
     if @product.save
       render text: "success"
@@ -29,7 +29,7 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find params[:id]
-    product_params = params.require(:product).permit(:title, :description, :price)
+    product_params = params.require(:product).permit(:title, :description, :price, {category_ids: []})
     if @product.update product_params
       redirect_to product_path(@product)
     else

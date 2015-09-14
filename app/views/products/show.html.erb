@@ -1,5 +1,6 @@
 <h1><%= @product.title %></h1>
 <p><%= @product.description %></p>
+<p><%= @product.categories.map(&:name).join(", ") %></p>
 <p><%= number_to_currency(@product.price) %></p>
 <h2>Add a comment</h2>
 <% if @comment.errors.any? %>
